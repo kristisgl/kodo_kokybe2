@@ -17,9 +17,7 @@ import javafx.stage.Stage;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+
 
 public class CourseForm {
     public TextField courseTitle;
@@ -28,12 +26,10 @@ public class CourseForm {
     public DatePicker courseEndDate;
     private int userId;
     
-    private String name;
 
     private int courseId;
 
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("CourseSystem");
-    UserHibernateController userHibernateController = new UserHibernateController(entityManagerFactory);
     CourseHibernateController courseHibernateController = new CourseHibernateController(entityManagerFactory);
 
     public void setCourseFormData(int id, boolean edit, int courseId) {
@@ -46,12 +42,9 @@ public class CourseForm {
             courseDescription.setText(course.getDescription());
             courseStartDate.setValue(course.getStartDate());
             courseEndDate.setValue(course.getEndDate());
-            /*prExpEnd.setValue(project.getExpectedEndDate().toInstant()
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate());*/
         }
     }
-    public void SaveCourse(ActionEvent actionEvent) throws IOException {
+    public void saveCourse(ActionEvent actionEvent) throws IOException {
         Course course = courseHibernateController.getCourseById(courseId);
         course.setTitle(courseTitle.getText());
         course.setDescription(courseDescription.getText());
